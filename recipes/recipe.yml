@@ -110,7 +110,6 @@ modules:
         - btop # Resource monitor. C+ homebrew_formula |"version and continuation of bashtop and bpytop | https://github.com/aristocratos/btop
         - fd # Simple, fast and user-friendly alternative to find | https://github.com/sharkdp/fd
         - ack # A grep-like tool tailored to working with large trees of source code | https://beyondgrep.com/
-        - eza # Modern, maintained replacement for ls | https://github.com/eza-community/eza
         - gh # GitHub command-line tool | https://cli.github.com/
         - glab # A GitLab CLI tool bringing GitLab to your command line | https://gitlab.com/gitlab-org/cli
         - rclone
