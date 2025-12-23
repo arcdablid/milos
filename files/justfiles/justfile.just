@@ -87,6 +87,15 @@ export On_IWhite := '\033[0;107m'   # White
 # ##############################################################################
 
 # Setup dotfiles.
+milos-test-recipe:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    printf '%s\n' "$@"
+
+# ##############################################################################
+
+# Setup dotfiles.
 milos-setup-dotfiles:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -116,6 +125,8 @@ milos-setup-dotfiles:
 
     # ------------------------------------------------------------------------------
 
+    index="${1:-${milos_INDEX}}"
+
     print_msg -x "${executor}" -g -b "Installing dotfiles..."
 
     declare -a errors=()
@@ -128,7 +139,7 @@ milos-setup-dotfiles:
             print_divider -g -f '-' -r 80
             deploy -s "${src}" -d "${dst}"
         fi
-    done < <( yq e '.deployables[] | [.dst, .src] | @tsv' "${milos_INDEX}" )
+    done < <( yq e '.dotfiles[] | [.dst, .src] | @tsv' "${index}" )
 
     if [[ ${#errors[@]} -gt 0 ]]; then
         print_divider -g -f '!' -r 80

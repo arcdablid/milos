@@ -1,4 +1,4 @@
-deployables:
+dotfiles:
   -
     dst: ~/.scripts
     src: /usr/share/milos/dotfiles/scripts

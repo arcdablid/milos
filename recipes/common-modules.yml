@@ -1,13 +1,5 @@
 ---
-# yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
-# image will be published to ghcr.io/<user>/<name>
-name: milos
-# description will be included in the image's metadata
-description: My Immutable Linux OS
-
-# the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/bazzite-dx-gnome
-image-version: latest
+# yaml-language-server: $schema=https://schema.blue-build.org/module-list-v1.json
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -226,6 +218,11 @@ modules:
     scripts:
       # run files/scripts/virtualbox.sh
       - virtualbox.sh
+
+  - type: chezmoi
+    repository: "https://github.com/arcdablid/dotfiles" # my dotfiles repo
+    # all-users: false # make users have to enable chezmoi manually
+    # file-conflict-policy: replace # override changed files with those from the repo
 
   - type: systemd
     # this example disables automatic flatpak updates and enables a custom service unit for all users
