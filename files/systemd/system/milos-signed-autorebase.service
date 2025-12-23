@@ -1,0 +1,17 @@
+[Unit]
+Description=milos autorebase to signed OCI and reboot
+ConditionPathExists=!/etc/milos-signed-autorebase/done
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+StandardOutput=journal+console
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/arcdablid/milos:latest
+ExecStart=/usr/bin/touch /etc/milos-signed-autorebase/done
+ExecStart=/usr/bin/systemctl reboot
+
+[Install]
+WantedBy=multi-user.target
