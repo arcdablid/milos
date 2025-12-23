@@ -87,11 +87,11 @@ export On_IWhite := '\033[0;107m'   # White
 # ##############################################################################
 
 # Setup dotfiles.
-milos-test-recipe:
+milos-test-recipe arg:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    printf '%s\n' "$@"
+    printf '%s\n' "{{arg}}"
 
 # ##############################################################################
 
