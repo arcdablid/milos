@@ -54,14 +54,10 @@ homebrew:
 
     - sd # Intuitive find & replace CLI | https://github.com/chmln/sd
     - eza # Modern, maintained replacement for ls | https://github.com/eza-community/eza
-    - isort # Sort Python imports automatically | https://pycqa.github.io/isort/
     - moor # Nice to use pager for humans | https://github.com/walles/moor
-    - dust # More intuitive version of du in rust | https://github.com/bootandy/dust
     - gnupg # GNU Pretty Good Privacy (PGP) package | https://gnupg.org/
-    - fd # Simple, fast and user-friendly alternative to find | https://github.com/sharkdp/fd
     - cosign # A tool for setting up container signing using Sigstore | https://github.com/sigstore/cosign
 
-    - ansible # Automate deployment, configuration, and upgrading | https://www.ansible.com/
     - ansible-lint # Checks ansible playbooks for practices and behaviour | https://ansible-lint.readthedocs.io/
 
     - ffmpeg # Play, record, convert, and stream audio and video | https://ffmpeg.org/

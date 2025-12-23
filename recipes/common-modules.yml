@@ -53,6 +53,7 @@ modules:
         - tealdeer # Very fast implementation of tldr in Rust | https://github.com/dbrgn/tealdeer
 
         - python3-pip
+        - python3-isort # Sort Python imports automatically | https://pycqa.github.io/isort/
         - python3-ruamel-yaml # YAML 1.2 loader/dumper package for Python | https://yaml.dev/doc/ruamel.yaml/
         - python3-tqdm # Make your loops show a smart progress meter | https://tqdm.github.io/
         - python3-pyperclip # Cross-platform clipboard module | https://github.com/asweigart/pyperclip
@@ -72,6 +73,8 @@ modules:
         - ruff # Extremely fast Python linter and code formatter
         - black # Python code formatter | https://black.readthedocs.io/en/stable/
 
+        - fd-find # Simple, fast and user-friendly alternative to find | https://github.com/sharkdp/fd
+        - du-dust # More intuitive version of du in rust | https://github.com/bootandy/dust
         - git
         - micro
         - bat # Clone of cat(1) with syntax highlighting and Git integration | https://github.com/sharkdp/bat
@@ -136,6 +139,8 @@ modules:
         - podman-compose # Run docker-compose.yml using podman
         - udica # A tool for generating SELinux security policies for containers | https://github.com/containers/udica
         - skopeo # A command line utility that performs various operations on container images and image repositories | https://github.com/containers/skopeo
+
+        - ansible # Automate deployment, configuration, and upgrading | https://www.ansible.com/
 
         - just # A handy way to save and run project-specific commands | https://github.com/casey/just
         - butane # Translates human-readable Butane Configs into machine-readable Ignition Configs | https://github.com/coreos/butane
