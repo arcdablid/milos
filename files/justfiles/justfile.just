@@ -326,7 +326,7 @@ milos-setup-vscode-extensions:
         declare -a errors=()
         for v_e in "${vscode_extensions[@]}"; do
             print_msg -x "${executor}" -g -i "Installing '${v_e}'"
-            code --install-extension "${v_e}" || errors+=("${pip_pkg}")
+            code --install-extension "${v_e}" || errors+=("${v_e}")
         done
 
         if [[ ${#errors[@]} -gt 0 ]]; then
