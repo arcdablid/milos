@@ -184,18 +184,21 @@ milos-setup-flatpaks:
     mapfile -t flatpaks_user < <( yq eval '.flatpaks.user[]' "${milos_INDEX}" )
     if [[ ${#flatpaks_user[@]} -gt 0 ]]; then
         print_msg -x "${executor}" -g -b "Installing user Flatpak apps..."
-        declare -a errors=()
         flatpak remote-modify --user --default-branch=stable flathub
-        for f_u in "${flatpaks_user[@]}"; do
-            print_msg -x "${executor}" -i "Installing '${f_u}'"
-            flatpak install --user --noninteractive "${f_u}" || errors+=("${pip_pkg}")
-        done
 
-        if [[ ${#errors[@]} -gt 0 ]]; then
-            print_divider -g -f '!' -r 80
-            print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
-            print_msg -x "${executor}" -e "${errors[@]}"
-        fi
+        flatpak install --user --or-update --assumeyes --noninteractive ${flatpaks_user[@]}
+
+        # declare -a errors=()
+        # for f_u in "${flatpaks_user[@]}"; do
+        #     print_msg -x "${executor}" -i "Installing '${f_u}'"
+        #     flatpak install --user --noninteractive "${f_u}" || errors+=("${pip_pkg}")
+        # done
+
+        # if [[ ${#errors[@]} -gt 0 ]]; then
+        #     print_divider -g -f '!' -r 80
+        #     print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
+        #     print_msg -x "${executor}" -e "${errors[@]}"
+        # fi
     else
         print_msg -x "${executor}" -i "Nothing to install"
     fi
@@ -204,18 +207,21 @@ milos-setup-flatpaks:
     mapfile -t flatpak_system < <( yq eval '.flatpaks.system[]' "${milos_INDEX}" )
     if [[ ${#flatpak_system[@]} -gt 0 ]]; then
         print_msg -x "${executor}" -g -b "Installing system Flatpak apps..."
-        declare -a errors=()
         flatpak remote-modify --system --default-branch=stable flathub
-        for f_s in "${flatpak_system[@]}"; do
-            print_msg -x "${executor}" -i "Installing '${f_s}'"
-            flatpak install --system --noninteractive "${f_s}" || errors+=("${pip_pkg}")
-        done
 
-        if [[ ${#errors[@]} -gt 0 ]]; then
-            print_divider -g -f '!' -r 80
-            print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
-            print_msg -x "${executor}" -e "${errors[@]}"
-        fi
+        flatpak install --system --or-update --assumeyes --noninteractive ${flatpak_system[@]}
+
+        # declare -a errors=()
+        # for f_s in "${flatpak_system[@]}"; do
+        #     print_msg -x "${executor}" -i "Installing '${f_s}'"
+        #     flatpak install --system --noninteractive "${f_s}" || errors+=("${pip_pkg}")
+        # done
+
+        # if [[ ${#errors[@]} -gt 0 ]]; then
+        #     print_divider -g -f '!' -r 80
+        #     print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
+        #     print_msg -x "${executor}" -e "${errors[@]}"
+        # fi
     else
         print_msg -x "${executor}" -i "Nothing to install"
     fi
@@ -273,17 +279,19 @@ milos-setup-homebrew:
     print_msg -x "${executor}" -b "Installing Homebrew Formulae..."
     mapfile -t homebrew_formulae < <( yq eval '.homebrew.formulae[]' "${milos_INDEX}" )
     if [[ ${#homebrew_formulae[@]} -gt 0 ]]; then
-        declare -a errors=()
-        for h_f in "${homebrew_formulae[@]}"; do
-            print_msg -x "${executor}" -g -i "Installing '${h_f}'"
-            brew install --formula "${h_f}" || errors+=("${pip_pkg}")
-        done
 
-        if [[ ${#errors[@]} -gt 0 ]]; then
-            print_divider -g -f '!' -r 80
-            print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
-            print_msg -x "${executor}" -e "${errors[@]}"
-        fi
+        brew install --formula ${homebrew_formulae[@]}
+
+        # declare -a errors=()
+        # for h_f in "${homebrew_formulae[@]}"; do
+        #     print_msg -x "${executor}" -g -i "Installing '${h_f}'"
+        #     brew install --formula "${h_f}" || errors+=("${pip_pkg}")
+        # done
+        # if [[ ${#errors[@]} -gt 0 ]]; then
+        #     print_divider -g -f '!' -r 80
+        #     print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
+        #     print_msg -x "${executor}" -e "${errors[@]}"
+        # fi
     else
         print_msg -x "${executor}" -i "Nothing to install"
     fi
@@ -327,8 +335,8 @@ milos-setup-vscode-extensions:
         declare -a errors=()
         for v_e in "${vscode_extensions[@]}"; do
             print_msg -x "${executor}" -g -i "Installing '${v_e}'"
-            sleep 1s
-            code --install-extension --wait "${v_e}" || errors+=("${v_e}")
+            sleep 2s
+            code --install-extension "${v_e}" || errors+=("${v_e}")
         done
 
         if [[ ${#errors[@]} -gt 0 ]]; then
@@ -376,21 +384,23 @@ milos-setup-cargo-pkgs:
     print_msg -x "${executor}" -b "Installing cargo packages..."
     mapfile -t cargo_pkgs < <( yq eval '.cargo[]' "${milos_INDEX}" )
     if [[ ${#cargo_pkgs[@]} -gt 0 ]]; then
-        declare -a errors=()
-        for cargo_pkg in "${cargo_pkgs[@]}"; do
-            print_msg -x "${executor}" -g -i "Installing '${cargo_pkg}'"
-            if [[ $cargo_pkg == "--git"* ]]; then
-                cargo install ${cargo_pkg} || errors+=("${cargo_pkg}")
-            else
-                cargo install --locked "${cargo_pkg}" || errors+=("${cargo_pkg}")
-            fi
-        done
 
-        if [[ ${#errors[@]} -gt 0 ]]; then
-            print_divider -g -f '!' -r 80
-            print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
-            print_msg -x "${executor}" -e "${errors[@]}"
-        fi
+        cargo install ${cargo_pkgs[@]}
+
+        # declare -a errors=()
+        # for cargo_pkg in "${cargo_pkgs[@]}"; do
+        #     print_msg -x "${executor}" -g -i "Installing '${cargo_pkg}'"
+        #     if [[ $cargo_pkg == "--git"* ]]; then
+        #         cargo install ${cargo_pkg} || errors+=("${cargo_pkg}")
+        #     else
+        #         cargo install --locked "${cargo_pkg}" || errors+=("${cargo_pkg}")
+        #     fi
+        # done
+        # if [[ ${#errors[@]} -gt 0 ]]; then
+        #     print_divider -g -f '!' -r 80
+        #     print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
+        #     print_msg -x "${executor}" -e "${errors[@]}"
+        # fi
     else
         print_msg -x "${executor}" -i "Nothing to install"
     fi
@@ -431,17 +441,19 @@ milos-setup-pip-pkgs:
     print_msg -x "${executor}" -b "Installing Python packages..."
     mapfile -t pip_pkgs < <( yq eval '.pip[]' "${milos_INDEX}" )
     if [[ ${#pip_pkgs[@]} -gt 0 ]]; then
-        declare -a errors=()
-        for pip_pkg in "${pip_pkgs[@]}"; do
-            print_msg -x "${executor}" -g -i "Installing '${pip_pkg}'"
-            pip install -U "${pip_pkg}" || errors+=("${pip_pkg}")
-        done
 
-        if [[ ${#errors[@]} -gt 0 ]]; then
-            print_divider -g -f '!' -r 80
-            print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
-            print_msg -x "${executor}" -e "${errors[@]}"
-        fi
+        pip install -U ${pip_pkgs[@]}
+
+        # declare -a errors=()
+        # for pip_pkg in "${pip_pkgs[@]}"; do
+        #     print_msg -x "${executor}" -g -i "Installing '${pip_pkg}'"
+        #     pip install -U "${pip_pkg}" || errors+=("${pip_pkg}")
+        # done
+        # if [[ ${#errors[@]} -gt 0 ]]; then
+        #     print_divider -g -f '!' -r 80
+        #     print_msg -x "${executor}" -g -b "${#errors[@]} errors detected!"
+        #     print_msg -x "${executor}" -e "${errors[@]}"
+        # fi
     else
         print_msg -x "${executor}" -i "Nothing to install"
     fi
