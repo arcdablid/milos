@@ -168,6 +168,7 @@ flatpaks:
   system:
     - com.mattjakeman.ExtensionManager
     - org.gnome.Extensions
+    - io.github.swordpuffin.rewaita
     - ca.desrt.dconf-editor
     - org.kde.dolphin
     - com.github.tchx84.Flatseal
