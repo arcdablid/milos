@@ -217,7 +217,6 @@ modules:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       - "groupadd -f vboxusers"
       - "flatpak remote-modify --default-branch=stable flathub"
-      - "flatpak remote-modify --user --default-branch=stable flathub"
       # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
       # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
     scripts:
@@ -381,8 +380,8 @@ modules:
         - tailscaled.service
     #   disabled:
     #     - flatpak-system-update.timer
-    # user:
-    #   enabled:
-    #     - notify-signed-autorebase-in-progress.service
+    user:
+      enabled:
+        - milos-flatpak-user-stable.service
     #   disabled:
     #     - flatpak-user-update.timer
