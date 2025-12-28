@@ -86,13 +86,20 @@ export On_IWhite := '\033[0;107m'   # White
 
 # ##############################################################################
 
-# Setup dotfiles.
+# Setup dotfiles using chezmoi.
 [positional-arguments]
-milos-test-recipe *args:
+milos-setup-chezmoi *args:
     #!/usr/bin/env bash
     set -euo pipefail
+    # printf '%s\n' "$@"
 
-    printf '%s\n' "$@"
+    chezmoi init --apply "$@"
+
+# ##############################################################################
+
+# Enable linger for current user
+milos-setup-linger:
+    sudo loginctl enable-linger $USER
 
 # ##############################################################################
 
@@ -113,20 +120,8 @@ milos-clean:
 
 # ##############################################################################
 
-# Shortcut to add SMB/CIFS shares.
-milos-add-rfs:
-    /usr/bin/rfs
-
-# ##############################################################################
-
-# Shortcut to remove SMB/CIFS shares.
-milos-remove-rfs:
-    /usr/bin/rfs -r
-
-# ##############################################################################
-
 # Add vboxusers group to system if not there already and current user to it.
-milos-vboxusers-add-current-user:
+milos-virtualbox-add-current-user:
     #!/usr/bin/env bash
     set -euo pipefail
 
