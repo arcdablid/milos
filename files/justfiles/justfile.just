@@ -1,7 +1,7 @@
 # Install all milos curated apps
-milos-setup-all: milos-setup-dotfiles milos-setup-flatpaks milos-setup-homebrew milos-setup-vscode-extensions milos-setup-cargo-pkgs milos-setup-pip-pkgs
+# milos-setup-all: milos-setup-dotfiles milos-setup-flatpaks milos-setup-homebrew milos-setup-vscode-extensions milos-setup-cargo-pkgs milos-setup-pip-pkgs
 
-export milos_INDEX := "/usr/share/milos/index.yml"
+# export milos_INDEX := "/usr/share/milos/index.yml"
 
 #------------------------------------------------------------------------------
 # ANSI escape code variables.
