@@ -45,6 +45,8 @@ modules:
         - fish
         - zsh
 
+        - chezmoi # https://www.chezmoi.io/
+
         - shellcheck # Shell script analysis tool | https://github.com/koalaman/shellcheck
         - direnv # Load/unload environment variables based on $PWD | https://direnv.net/
         - parallel # Shell command parallelization utility | https://savannah.gnu.org/projects/parallel/
@@ -165,16 +167,6 @@ modules:
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
 
-  # - type: default-flatpaks
-  #   configurations:
-  #     - notify: false # Send notification after install/uninstall is finished (true/false)
-  #       scope: system
-  #       # If no repo information is specified, Flathub will be used by default
-  #       install: # system flatpaks we want all users to have and not remove
-  #         - org.mozilla.firefox
-  #         - org.gnome.Loupe
-  #     - notify: false
-  #       scope: user # Also add Flathub user repo, but no user packages
 
   - type: fonts
     fonts:
@@ -217,17 +209,159 @@ modules:
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       - "groupadd -f vboxusers"
-      # - "flatpak remote-modify --default-branch=stable flathub"
+      - "flatpak remote-modify --default-branch=stable flathub"
+      - "flatpak remote-modify --user --default-branch=stable flathub"
       # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
       # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
     scripts:
       # run files/scripts/virtualbox.sh
       - virtualbox.sh
 
-  - type: chezmoi
-    repository: "https://github.com/arcdablid/dotfiles" # my dotfiles repo
-    # all-users: false # make users have to enable chezmoi manually
-    # file-conflict-policy: replace # override changed files with those from the repo
+  - type: default-flatpaks
+    configurations:
+      - notify: false # Send notification after install/uninstall is finished (true/false)
+        scope: system
+        # If no repo information is specified, Flathub will be used by default
+        install: # system flatpaks we want all users to have and not remove
+          - com.github.tchx84.Flatseal
+          - io.github.fabrialberio.pinapp
+          - com.mattjakeman.ExtensionManager
+          - org.gnome.Extensions
+          - ca.desrt.dconf-editor
+          - org.mozilla.firefox
+          - org.gnome.Weather
+          - org.gnome.Calculator
+          - org.gnome.Loupe # Image viewer
+          - org.gnome.Snapshot # Camera
+          - org.gnome.Showtime # Video player
+          - org.gnome.Loupe
+          - org.gnome.baobab # Disk Usage Analyzer
+          - org.gnome.Maps
+          - org.gnome.SimpleScan
+          - org.gnome.Papers
+          - org.gnome.TextEditor
+          - org.gnome.Geary
+          - org.gnome.Decibels
+          - org.gnome.Logs
+          - org.gnome.Connections
+          - org.gnome.clocks
+          - org.gnome.Mahjongg
+          - org.gnome.Sudoku
+
+          - io.github.pwr_solaar.solaar
+
+          # Yaru
+          - org.gtk.Gtk3theme.Yaru
+          - org.gtk.Gtk3theme.Yaru-Yellow
+          - org.gtk.Gtk3theme.Yaru-Yellow-light
+          - org.gtk.Gtk3theme.Yaru-Yellow-light
+          - org.gtk.Gtk3theme.Yaru-Yellow-dark
+          - org.gtk.Gtk3theme.Yaru-Yellow-dark
+          - org.gtk.Gtk3theme.Yaru-Teal
+          - org.gtk.Gtk3theme.Yaru-Teal
+          - org.gtk.Gtk3theme.Yaru-Teal-light
+          - org.gtk.Gtk3theme.Yaru-Teal-light
+          - org.gtk.Gtk3theme.Yaru-Teal-dark
+          - org.gtk.Gtk3theme.Yaru-Teal-dark
+          - org.gtk.Gtk3theme.Yaru-Red
+          - org.gtk.Gtk3theme.Yaru-Red
+          - org.gtk.Gtk3theme.Yaru-Red-light
+          - org.gtk.Gtk3theme.Yaru-Red-light
+          - org.gtk.Gtk3theme.Yaru-Red-dark
+          - org.gtk.Gtk3theme.Yaru-Red-dark
+          - org.gtk.Gtk3theme.Yaru-Purple
+          - org.gtk.Gtk3theme.Yaru-Purple
+          - org.gtk.Gtk3theme.Yaru-Purple-light
+          - org.gtk.Gtk3theme.Yaru-Purple-light
+          - org.gtk.Gtk3theme.Yaru-Purple-dark
+          - org.gtk.Gtk3theme.Yaru-Purple-dark
+          - org.gtk.Gtk3theme.Yaru-Pink
+          - org.gtk.Gtk3theme.Yaru-Pink
+          - org.gtk.Gtk3theme.Yaru-Pink-light
+          - org.gtk.Gtk3theme.Yaru-Pink-light
+          - org.gtk.Gtk3theme.Yaru-Pink-dark
+          - org.gtk.Gtk3theme.Yaru-Pink-dark
+          - org.gtk.Gtk3theme.Yaru-Orange
+          - org.gtk.Gtk3theme.Yaru-Orange
+          - org.gtk.Gtk3theme.Yaru-Orange-light
+          - org.gtk.Gtk3theme.Yaru-Orange-light
+          - org.gtk.Gtk3theme.Yaru-Orange-dark
+          - org.gtk.Gtk3theme.Yaru-Orange-dark
+          - org.gtk.Gtk3theme.Yaru-MATE
+          - org.gtk.Gtk3theme.Yaru-MATE
+          - org.gtk.Gtk3theme.Yaru-MATE-light
+          - org.gtk.Gtk3theme.Yaru-MATE-light
+          - org.gtk.Gtk3theme.Yaru-MATE-dark
+          - org.gtk.Gtk3theme.Yaru-MATE-dark
+          - org.gtk.Gtk3theme.Yaru-Lavender
+          - org.gtk.Gtk3theme.Yaru-Lavender-light
+          - org.gtk.Gtk3theme.Yaru-Lavender-dark
+          - org.gtk.Gtk3theme.Yaru-Grey
+          - org.gtk.Gtk3theme.Yaru-Grey
+          - org.gtk.Gtk3theme.Yaru-Grey-light
+          - org.gtk.Gtk3theme.Yaru-Grey-light
+          - org.gtk.Gtk3theme.Yaru-Grey-dark
+          - org.gtk.Gtk3theme.Yaru-Grey-dark
+          - org.gtk.Gtk3theme.Yaru-Green
+          - org.gtk.Gtk3theme.Yaru-Green
+          - org.gtk.Gtk3theme.Yaru-Green-light
+          - org.gtk.Gtk3theme.Yaru-Green-light
+          - org.gtk.Gtk3theme.Yaru-Green-dark
+          - org.gtk.Gtk3theme.Yaru-Green-dark
+          - org.gtk.Gtk3theme.Yaru-Deepblue
+          - org.gtk.Gtk3theme.Yaru-Deepblue
+          - org.gtk.Gtk3theme.Yaru-Deepblue-light
+          - org.gtk.Gtk3theme.Yaru-Deepblue-light
+          - org.gtk.Gtk3theme.Yaru-Deepblue-dark
+          - org.gtk.Gtk3theme.Yaru-Deepblue-dark
+          - org.gtk.Gtk3theme.Yaru-Cinnamon
+          - org.gtk.Gtk3theme.Yaru-Cinnamon
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-light
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-light
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-dark
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-dark
+          - org.gtk.Gtk3theme.Yaru-Brown
+          - org.gtk.Gtk3theme.Yaru-Brown
+          - org.gtk.Gtk3theme.Yaru-Brown-light
+          - org.gtk.Gtk3theme.Yaru-Brown-light
+          - org.gtk.Gtk3theme.Yaru-Brown-dark
+          - org.gtk.Gtk3theme.Yaru-Brown-dark
+          - org.gtk.Gtk3theme.Yaru-Blue
+          - org.gtk.Gtk3theme.Yaru-Blue
+          - org.gtk.Gtk3theme.Yaru-Blue-light
+          - org.gtk.Gtk3theme.Yaru-Blue-light
+          - org.gtk.Gtk3theme.Yaru-Blue-dark
+          - org.gtk.Gtk3theme.Yaru-Blue-dark
+          - org.gtk.Gtk3theme.Yaru-Aubergine
+          - org.gtk.Gtk3theme.Yaru-Aubergine-light
+          - org.gtk.Gtk3theme.Yaru-Aubergine-dark
+          - org.gtk.Gtk3theme.Yaru-Aqua
+          - org.gtk.Gtk3theme.Yaru-Aqua
+          - org.gtk.Gtk3theme.Yaru-Aqua-light
+          - org.gtk.Gtk3theme.Yaru-Aqua-light
+          - org.gtk.Gtk3theme.Yaru-Aqua-dark
+          - org.gtk.Gtk3theme.Yaru-Aqua-dark
+          - org.gtk.Gtk3theme.Yaru-Amber
+          - org.gtk.Gtk3theme.Yaru-Amber
+          - org.gtk.Gtk3theme.Yaru-Amber-light
+          - org.gtk.Gtk3theme.Yaru-Amber-light
+          - org.gtk.Gtk3theme.Yaru-Amber-dark
+          - org.gtk.Gtk3theme.Yaru-Amber-dark
+          - org.gtk.Gtk3theme.Yaru-sage
+          - org.gtk.Gtk3theme.Yaru-sage-dark
+          - org.gtk.Gtk3theme.Yaru-remix
+          - org.gtk.Gtk3theme.Yaru-remix-light
+          - org.gtk.Gtk3theme.Yaru-remix-dark
+          - org.gtk.Gtk3theme.Yaru-prussiangreen
+          - org.gtk.Gtk3theme.Yaru-prussiangreen-dark
+          - org.gtk.Gtk3theme.Yaru-olive
+          - org.gtk.Gtk3theme.Yaru-olive-dark
+          - org.gtk.Gtk3theme.Yaru-magenta
+          - org.gtk.Gtk3theme.Yaru-magenta-dark
+          - org.gtk.Gtk3theme.Yaru-light
+          - org.gtk.Gtk3theme.Yaru-dark
+          - org.gtk.Gtk3theme.Yaru-bark
+          - org.gtk.Gtk3theme.Yaru-bark-dark
 
   - type: systemd
     # this example disables automatic flatpak updates and enables a custom service unit for all users
@@ -240,8 +374,8 @@ modules:
         - tailscaled.service
     #   disabled:
     #     - flatpak-system-update.timer
-    user:
-      enabled:
-        - notify-signed-autorebase-in-progress.service
+    # user:
+    #   enabled:
+    #     - notify-signed-autorebase-in-progress.service
     #   disabled:
     #     - flatpak-user-update.timer
