@@ -91,7 +91,6 @@ export On_IWhite := '\033[0;107m'   # White
 milos-setup-chezmoi *args:
     #!/usr/bin/env bash
     set -euo pipefail
-    # printf '%s\n' "$@"
 
     chezmoi init --apply "$@"
 
