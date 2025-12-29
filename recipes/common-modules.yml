@@ -106,8 +106,11 @@ modules:
         - rclone
         - ripgrep # A line-oriented search tool that recursively searches the current directory for a regex pattern | https://github.com/BurntSushi/ripgrep
         - ugrep # A more powerful, ultra fast, user-friendly, compatible grep | https://github.com/Genivia/ugrep
+
         - yq # Process YAML, JSON, XML, CSV and properties documents from the CLI | https://github.com/mikefarah/yq
         - jq # Lightweight and flexible command-line JSON processor | https://jqlang.github.io/jq/
+        - miller # Name-indexed data processing tool | https://github.com/johnkerl/miller
+
         - zoxide # Shell extension to navigate your filesystem faster | https://github.com/ajeetdsouza/zoxide
         - nnn # Tiny, lightning fast, feature-packed file manager | https://github.com/jarun/nnn
         - tree # Display directories as trees (with optional color/HTML output) | https://oldmanprogrammer.net/source.php?dir=projects/tree
