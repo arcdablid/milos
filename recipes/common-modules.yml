@@ -67,6 +67,9 @@ modules:
 
         - java-latest-openjdk.x86_64
         - java-latest-openjdk-devel.x86_64
+        - golang
+        - ruby
+        - nodejs
 
         - cargo
 
