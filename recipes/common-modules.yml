@@ -33,6 +33,7 @@ modules:
         - scottames/ghostty
     install:
       packages:
+        - NetworkManager-libnm
         - NetworkManager-tui
         - gnome-tweaks
 
