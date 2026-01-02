@@ -26,6 +26,7 @@ modules:
 
   - type: dnf
     repos:
+      nonfree: rpmfusion
       keys:
         - https://linux.teamviewer.com/pubkey/currentkey.asc
       copr:
