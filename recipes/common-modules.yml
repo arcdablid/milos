@@ -34,9 +34,14 @@ modules:
         - scottames/ghostty
     install:
       packages:
-        - NetworkManager-libnm
-        - NetworkManager-tui
+        # - NetworkManager-libnm
+        # - NetworkManager-tui
         - gnome-tweaks
+
+        - cockpit
+        - cockpit-files
+        - cockpit-machines
+        - cockpit-podman
 
         - starship
         - ghostty
@@ -383,9 +388,10 @@ modules:
       enabled:
         - milos-signed-autorebase.service
         - milos-system-autoclean.timer
+        - tailscaled.service
         - podman.socket
         - docker.socket
-        - tailscaled.service
+        - cockpit.socket
     #   disabled:
     #     - flatpak-system-update.timer
     user:
