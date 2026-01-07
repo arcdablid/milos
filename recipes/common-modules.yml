@@ -266,6 +266,8 @@ modules:
           - org.gnome.clocks
           - org.gnome.Mahjongg
           - org.gnome.Sudoku
+          - page.tesk.Refine
+          - io.github.realmazharhussain.GdmSettings
 
           - io.github.pwr_solaar.solaar
 
