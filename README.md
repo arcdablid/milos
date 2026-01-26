@@ -7,69 +7,16 @@ A custom immutable Linux OS based on [The Bazzite Developer Experience](https://
 - Ghostty
 - TeamViewer
 - VirtualBox (script by [by ettfemnio & Preston Petrie](https://github.com/ettfemnio/bazzite-virtualbox/blob/main/build.sh))
-- Curated list of pre-installed extra [system packages, flatpaks, gnome extensions & fonts](https://github.com/arcdablid/milos/recipes/recipe.yml)
-- [`rfs`](https://github.com/arcdablid/milos/files/system/usr/bin/rfs) command to easily add/remove SMB/CIFS shares via interactive input, or `.toml` config files with the following format:
-
-  ```toml
-    # One server and its shares
-    [[servers]]
-    name = "your_server_name_here_1"
-    addresses = [
-        # In descending order of priority
-        "10.10.10.10",      # 10G SFP+
-        "192.168.192.168",  # 1G LAN
-        "100.90.80.70",     # Tailscale
-    ]
-    [[servers.shares]]
-    name = "your_share_name_here_1"
-    mount_under = "~/rfs"   # Default location for user shares
-    username = "your_username_here"
-    password = "your_password_here"
-    domain = "your_domain_here"
-    [[servers.shares]]
-    name = "your_share_name_here_2"
-    mount_under = "~/elsewhere"
-    username = "your_username_here"
-    password = "your_password_here"
-    domain = "your_domain_here"
-
-    # Another server and its shares
-    [[servers]]
-    name = "your_server_name_here_N"
-    addresses = [
-        # In descending order of priority
-        "10.10.10.11",      # 10G SFP+
-        "192.168.192.192",  # 1G LAN
-        "100.60.50.40",     # Tailscale
-    ]
-    [[servers.shares]]
-    name = "your_share_name_here_1"
-    mount_under = "~/somewhere"
-    username = "your_username_here"
-    password = "your_password_here"
-    domain = "your_domain_here"
-    [[servers.shares]]
-    name = "your_share_name_here_2"
-    mount_under = "~/shares"
-    username = "your_username_here"
-    password = "your_password_here"
-    domain = "your_domain_here"
-  ```
-
-  The intention of `rfs` is to make it easy for users to mount shares under their home folder. Linux doesn't allow mounting of remote filesystems at user-level and mounting through the file browser has limitations, at least in as far as access from other applications. I also wanted the ability to specify multiple addresses per server - a LAN one for when at home and a Tailscale one when out & about, automatically switching between them.
-  Thusly, `rfs` generates per share systemd `.mount`, `.automount`, `.service` & `.timer` units, along with a journald config file for debugging, a credentials file by default under the `~/.config/rfs` path, and a script run by the `.service` unit which contains the main logic for checking server addresses & availability and acting accordingly - start, refresh or stop things. The `.timer` controls the frequency of how often this process happens. Lastly, a faux-registry file is generated to facilitate easy removal of shares later on. Check `rfs --help` for adjusting some (opinionated) default options.
-
-  ### WARNING
-
-  **`rfs` is a work in progress! Use at your own risk!**
-
-- Specific `ujust` recipes to auto-setup most of the above & other useful extras:
-
+- Curated list of extra [system packages, flatpaks, gnome extensions & fonts](https://github.com/arcdablid/milos/recipes/recipe.yml)
+- A few extra useful [`ujust` recipes](https://github.com/arcdablid/milos/files/justfiles/justfile.just):
   ```bash
-    milos-vboxusers-add-current-user # Add vboxusers group to system if not there already and current user to it.
-    milos-add-rfs                    # Shortcut to add SMB/CIFS shares.
-    milos-remove-rfs                 # Shortcut to remove SMB/CIFS shares.
-    milos-clean                      # Clean up old packages and Docker/Podman images and volumes.
+    milos-setup-chezmoi               # Shortcut to setup dotfiles using chezmoi.
+    milos-setup-linger                # Enable linger for current user
+    milos-vboxusers-add-current-user  # Add vboxusers group to system if not there already and current user to it.
+    milos-clean                       # Clean up old packages and Docker/Podman images and volumes.
+    milos-setup-podman-syncthing      # Add syncthing for current user via a quadlet.
+    milos-setup-teamviewer            # Setup teamviewer background service & launch teamviewer
+    milos-setup-tailscale             # Setup tailscale (and it systray) by providing an auth-key
   ```
 
 ## Installation
@@ -83,7 +30,7 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos:latest
   ```
   or
-    ```
+  ```
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-nvidia:latest
   ```
 - Reboot to complete the rebase:
@@ -95,7 +42,7 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos:latest
   ```
   or
-    ```
+  ```
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-nvidia:latest
   ```
 - Reboot again to complete the installation
@@ -110,7 +57,9 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 ```bash
 cosign verify --key cosign.pub ghcr.io/arcdablid/milos
 ```
+
 or
+
 ```bash
 cosign verify --key cosign.pub ghcr.io/arcdablid/milos-nvidia
 ```

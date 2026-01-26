@@ -86,7 +86,7 @@ export On_IWhite := '\033[0;107m'   # White
 
 # ##############################################################################
 
-# Setup dotfiles using chezmoi.
+# Shortcut to setup dotfiles using chezmoi.
 [positional-arguments]
 milos-setup-chezmoi *args:
     #!/usr/bin/env bash
@@ -146,7 +146,7 @@ milos-setup-podman-syncthing:
     executor_path="$(readlink -f "${executor_path}")"
     executor_dir="$(cd -P "$(dirname -- "${executor_path}")" >/dev/null 2>&1 && pwd)"
 
-    declare -a required_cmds=( "print_msg" "podman" )
+    declare -a required_cmds=( "podman" )
 
     fail=false
     for rc in "${required_cmds[@]}"; do
@@ -191,22 +191,18 @@ milos-setup-podman-syncthing:
     WantedBy=default.target
     "
 
-    print_msg -x "${executor}" -i "Creating directories..."
-    # printf "[${executor}] ${BBlue}INFO${Color_Off} - Creating directories...\n"
+    printf "[${executor}] ${BPurple}INFO${Color_Off} - Creating directories...\n"
     mkdir -pv "${config_location}"
     mkdir -pv "${shares_location}"
 
-    print_msg -x "${executor}" -i "Creating quadlet..."
-    # printf "[${executor}] ${BBlue}INFO${Color_Off} - Creating quadlet...\n"
+    printf "[${executor}] ${BPurple}INFO${Color_Off} - Creating quadlet...\n"
     echo "${QUADLET}" | tee ~/.config/containers/systemd/syncthing.container > /dev/null
 
-    print_msg -x "${executor}" -i "Enabling & starting quadlet..."
-    # printf "[${executor}] ${BBlue}INFO${Color_Off} - Enabling & starting quadlet...\n"
+    printf "[${executor}] ${BPurple}INFO${Color_Off} - Enabling & starting quadlet...\n"
     systemctl --user daemon-reload
     systemctl --user start syncthing
 
-    print_msg -x "${executor}" -i "Enabling automatic updates & start on boot..."
-    # printf "[${executor}] ${BBlue}INFO${Color_Off} - Enabling automatic updates & start on boot...\n"
+    printf "[${executor}] ${BPurple}INFO${Color_Off} - Enabling automatic updates & start on boot...\n"
 
     # 'AutoUpdate=registry' in the systemd definition allows the container to be auto-updated,
     # manually by calling 'podman auto-update'
@@ -225,8 +221,16 @@ milos-setup-teamviewer:
 
 # ##############################################################################
 
-# Setup tailscale and its systray
-milos-setup-tailscale-systray:
+# Setup tailscale (and it systray) by providing an auth-key
+[positional-arguments]
+milos-setup-tailscale *args:
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    sudo tailscale up --auth-key "$@"
+    sudo tailscale set --operator=$USER
+
+    # Tailscale integrated systray for GNOME
     tailscale configure systray --enable-startup=systemd
     systemctl --user daemon-reload
     systemctl --user enable --now tailscale-systray

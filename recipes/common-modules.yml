@@ -32,6 +32,7 @@ modules:
       copr:
         - atim/starship
         - scottames/ghostty
+        - jdxcode/mise
     install:
       packages:
         # - NetworkManager-libnm
@@ -84,6 +85,8 @@ modules:
         - uv # An extremely fast Python package installer and resolver, written in Rust
         - ruff # Extremely fast Python linter and code formatter
         - black # Python code formatter | https://black.readthedocs.io/en/stable/
+
+        - mise # Dev tool, environment variable, and task manager | https://mise.jdx.dev
 
         - fd-find # Simple, fast and user-friendly alternative to find | https://github.com/sharkdp/fd
         - du-dust # More intuitive version of du in rust | https://github.com/bootandy/dust
