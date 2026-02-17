@@ -27,6 +27,10 @@ modules:
   - type: dnf
     repos:
       nonfree: rpmfusion
+      files:
+        - https://repository.mullvad.net/rpm/stable/mullvad.repo
+        # - https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+        # - custom-file.repo # file path for /files/dnf/custom-file.repo
       keys:
         - https://linux.teamviewer.com/pubkey/currentkey.asc
       copr:
@@ -43,6 +47,9 @@ modules:
         - cockpit-files
         - cockpit-machines
         - cockpit-podman
+
+        - mullvad-vpn
+        - mullvad-browser
 
         - starship
         - ghostty
@@ -62,17 +69,6 @@ modules:
         - cheat # Help for various commands and their use cases
         - tealdeer # Very fast implementation of tldr in Rust | https://github.com/dbrgn/tealdeer
 
-        - python3-pip
-        - python3-isort # Sort Python imports automatically | https://pycqa.github.io/isort/
-        - python3-ruamel-yaml # YAML 1.2 loader/dumper package for Python | https://yaml.dev/doc/ruamel.yaml/
-        - python3-tqdm # Make your loops show a smart progress meter | https://tqdm.github.io/
-        - python3-pyperclip # Cross-platform clipboard module | https://github.com/asweigart/pyperclip
-        - python3-validators # Data validation in Python for humans | https://github.com/python-validators/validators/
-        - python3-tabulate # Pretty-print tabular data in Python, a library and a command-line utility
-        - python3-flask
-        - python3-flask-wtf # Simple integration of Flask and WTForms
-        - python3-wtforms # Forms validation and rendering library for python
-
         - java-latest-openjdk.x86_64
         - java-latest-openjdk-devel.x86_64
         - golang
@@ -81,9 +77,10 @@ modules:
 
         - cargo
 
-        - pipx
+        - python3-pip
         - uv # An extremely fast Python package installer and resolver, written in Rust
         - ruff # Extremely fast Python linter and code formatter
+        - pipx
         - black # Python code formatter | https://black.readthedocs.io/en/stable/
 
         - mise # Dev tool, environment variable, and task manager | https://mise.jdx.dev
