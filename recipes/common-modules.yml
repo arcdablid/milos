@@ -388,6 +388,7 @@ modules:
     # this example disables automatic flatpak updates and enables a custom service unit for all users
     system:
       enabled:
+        - milos-add-groups.service
         - milos-signed-autorebase.service
         - milos-system-autoclean.timer
         - tailscaled.service

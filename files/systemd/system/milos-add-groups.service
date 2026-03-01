@@ -1,0 +1,16 @@
+[Unit]
+Description=milos add missing groups
+ConditionPathExists=!/etc/milos-signed-autorebase/done
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+StandardOutput=journal+console
+Restart=on-failure
+RestartSec=5
+ExecStart=/usr/bin/groupadd docker
+ExecStart=/usr/bin/groupadd vboxusers
+
+[Install]
+WantedBy=multi-user.target
