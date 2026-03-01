@@ -9,8 +9,8 @@ Type=oneshot
 StandardOutput=journal+console
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/groupadd docker
-ExecStart=/usr/bin/groupadd vboxusers
+ExecStart=/usr/bin/groupadd --force docker
+ExecStart=/usr/bin/groupadd --force vboxusers
 
 [Install]
 WantedBy=multi-user.target
