@@ -392,7 +392,7 @@ modules:
         - milos-system-autoclean.timer
         - tailscaled.service
         - podman.socket
-        - docker.service
+        - docker.socket
         - cockpit.socket
     #   disabled:
     #     - flatpak-system-update.timer
