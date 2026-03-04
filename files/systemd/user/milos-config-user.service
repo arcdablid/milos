@@ -1,0 +1,18 @@
+[Unit]
+Description=Set default branch to stable for user flatpaks
+ConditionPathExists=!%h/.var/lib/%N.stamp
+After=network-online.target milos-config-system.service
+Before=user-flatpak-setup.timer user-flatpak-setup.service
+
+[Service]
+Type=simple
+Restart=on-failure
+RestartSec=2
+ExecStart=/usr/bin/mkdir -p %h/.var/lib
+ExecStart=/usr/bin/flatpak remote-modify --user --default-branch=stable flathub
+ExecStart=/usr/bin/loginctl enable-linger %u
+
+ExecStart=/usr/bin/touch %h/.var/lib/%N.stamp
+
+[Install]
+WantedBy=default.target

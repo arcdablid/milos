@@ -8,8 +8,8 @@ modules:
 
   - type: files
     files:
-      # copies `files/system/*` (* means everything inside it) into your image's root folder `/`
-      - source: system
+      # copies `files/milos/*` (* means everything inside it) into your image's root folder `/`
+      - source: milos
         destination: /
       # copies `files/my-image/usr/*` to `/usr/` inside the image
       # - source: my-image/usr
@@ -17,9 +17,10 @@ modules:
 
   - type: justfiles
     # validate: true
+    install: true
     # By default, the module will import all files with names ending in .just from files/justfiles/.
-    # include:
-    #   - common
+    include:
+      - milos
     #   - gnome/monitors.just
     #   - shared/flatpak/fix-theming.just
     #   - justfile1.just
@@ -65,7 +66,7 @@ modules:
         - shellcheck # Shell script analysis tool | https://github.com/koalaman/shellcheck
         - direnv # Load/unload environment variables based on $PWD | https://direnv.net/
         - parallel # Shell command parallelization utility | https://savannah.gnu.org/projects/parallel/
-        - just
+
         - cheat # Help for various commands and their use cases
         - tealdeer # Very fast implementation of tldr in Rust | https://github.com/dbrgn/tealdeer
 
@@ -157,7 +158,6 @@ modules:
 
         - ansible # Automate deployment, configuration, and upgrading | https://www.ansible.com/
 
-        - just # A handy way to save and run project-specific commands | https://github.com/casey/just
         - butane # Translates human-readable Butane Configs into machine-readable Ignition Configs | https://github.com/coreos/butane
 
         - gparted
@@ -226,15 +226,13 @@ modules:
         scope: system
 
   - type: script
-    snippets:
-      - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
-      - "groupadd -f vboxusers"
-      - "flatpak remote-modify --default-branch=stable flathub"
-      # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
-      # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
     scripts:
       # run files/scripts/virtualbox.sh
       - virtualbox.sh
+    snippets:
+      - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
+      # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
+      # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
 
   - type: default-flatpaks
     configurations:
@@ -388,7 +386,7 @@ modules:
     # this example disables automatic flatpak updates and enables a custom service unit for all users
     system:
       enabled:
-        - milos-add-groups.service
+        - milos-config-system.service
         - milos-signed-autorebase.service
         - milos-system-autoclean.timer
         - tailscaled.service
@@ -399,6 +397,6 @@ modules:
     #     - flatpak-system-update.timer
     user:
       enabled:
-        - milos-flatpak-user-stable.service
+        - milos-config-user.service
     #   disabled:
     #     - flatpak-user-update.timer

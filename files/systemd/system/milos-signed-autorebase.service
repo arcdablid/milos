@@ -1,8 +1,9 @@
 [Unit]
 Description=milos autorebase to signed OCI and reboot
 ConditionPathExists=!/etc/milos-signed-autorebase/done
-After=network-online.target milos-add-groups.service
+After=network-online.target milos-config-system.service
 Wants=network-online.target
+Before=system-flatpak-setup.timer system-flatpak-setup.service user-flatpak-setup.timer user-flatpak-setup.service
 
 [Service]
 Type=oneshot
