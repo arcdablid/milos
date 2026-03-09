@@ -231,6 +231,7 @@ modules:
       - virtualbox.sh
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
+      - "flatpak remote-modify --system --default-branch=stable flathub"
       # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
       # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
 
