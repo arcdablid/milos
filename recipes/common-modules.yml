@@ -271,6 +271,8 @@ modules:
 
           - io.github.pwr_solaar.solaar
 
+          - com.freerdp.FreeRDP
+
           # Yaru
           - org.gtk.Gtk3theme.Yaru
           - org.gtk.Gtk3theme.Yaru-Yellow
