@@ -232,7 +232,7 @@ modules:
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       - "flatpak remote-modify --system --default-branch=stable flathub"
-      - 'curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" | dnf install -y'
+      - 'dnf install -y "$( curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" )"'
       # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
       # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
 
