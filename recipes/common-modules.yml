@@ -52,7 +52,6 @@ modules:
         - mullvad-vpn
         - mullvad-browser
 
-        - starship
         - ghostty
 
         - xonsh # Python-powered, cross-platform, Unix-gazing shell language and command prompt | https://xon.sh/
@@ -63,80 +62,42 @@ modules:
 
         - chezmoi # https://www.chezmoi.io/
 
-        - shellcheck # Shell script analysis tool | https://github.com/koalaman/shellcheck
-        - direnv # Load/unload environment variables based on $PWD | https://direnv.net/
-        - parallel # Shell command parallelization utility | https://savannah.gnu.org/projects/parallel/
-
-        - cheat # Help for various commands and their use cases
-        - tealdeer # Very fast implementation of tldr in Rust | https://github.com/dbrgn/tealdeer
-
         - java-latest-openjdk.x86_64
         - java-latest-openjdk-devel.x86_64
         - golang
         - ruby
         - nodejs
-
         - cargo
-
         - python3-pip
         - uv # An extremely fast Python package installer and resolver, written in Rust
         - ruff # Extremely fast Python linter and code formatter
         - pipx
         - black # Python code formatter | https://black.readthedocs.io/en/stable/
-
         - mise # Dev tool, environment variable, and task manager | https://mise.jdx.dev
 
-        - fd-find # Simple, fast and user-friendly alternative to find | https://github.com/sharkdp/fd
-        - du-dust # More intuitive version of du in rust | https://github.com/bootandy/dust
         - git
         - micro
-        - bat # Clone of cat(1) with syntax highlighting and Git integration | https://github.com/sharkdp/bat
-        - fzf # Command-line fuzzy finder written in Go | https://github.com/junegunn/fzf
+        - yq # Process YAML, JSON, XML, CSV and properties documents from the CLI | https://github.com/mikefarah/yq
+        - jq # Lightweight and flexible command-line JSON processor | https://jqlang.github.io/jq/
+
         - util-linux
-        - age # File encryption tool | https://github.com/FiloSottile/age
-        - httpie # User-friendly cURL replacement (command-line HTTP client) | https://httpie.io/
-        - aria2 #Download with resuming and segmented downloading | https://aria2.github.io/
-        - mosh # Mobile shell (ssh replacement) - https://mosh.org/
-        - gitui # Blazing fast terminal-ui for git written in rust | https://github.com/extrawurst/gitui
-        - thefuck
+
+        - du-dust # More intuitive version of du in rust | https://github.com/bootandy/dust
+        - ncdu # NCurses Disk Usage | https://dev.yorhel.nl/ncdu
+
+        - btop # Resource monitor. C+ homebrew_formula |"version and continuation of bashtop and bpytop | https://github.com/aristocratos/btop
         - glances # Alternative to top/htop | https://nicolargo.github.io/glances/
+        - lsof # Utility to list open files | https://github.com/lsof-org/lsof
+
         - iftop # Display an interface's bandwidth usage | https://pdw.ex-parrot.com/iftop/
         - iperf3 # Update of iperf: measures TCP, UDP, and SCTP bandwidth | https://github.com/esnet/iperf
         - speedtest-cli # Command-line interface for https://speedtest.net bandwidth tests | https://github.com/sivel/speedtest-cli
-        - lsof # Utility to list open files | https://github.com/lsof-org/lsof
+
         - clinfo # Print information about OpenCL platforms and devices | https://github.com/Oblomov/clinfo
         - usbutils # List detailed info about USB devices | http://www.linux-usb.org/
         - pciutils # PCI utilities | https://github.com/pciutils/pciutils
         - powertop
-        - ncdu # NCurses Disk Usage | https://dev.yorhel.nl/ncdu
         - smartmontools # SMART hard drive monitoring | https://www.smartmontools.org/
-        - btop # Resource monitor. C+ homebrew_formula |"version and continuation of bashtop and bpytop | https://github.com/aristocratos/btop
-        - ack # A grep-like tool tailored to working with large trees of source code | https://beyondgrep.com/
-        - gh # GitHub command-line tool | https://cli.github.com/
-        - glab # A GitLab CLI tool bringing GitLab to your command line | https://gitlab.com/gitlab-org/cli
-        - rclone
-        - ripgrep # A line-oriented search tool that recursively searches the current directory for a regex pattern | https://github.com/BurntSushi/ripgrep
-        - ugrep # A more powerful, ultra fast, user-friendly, compatible grep | https://github.com/Genivia/ugrep
-
-        - yq # Process YAML, JSON, XML, CSV and properties documents from the CLI | https://github.com/mikefarah/yq
-        - jq # Lightweight and flexible command-line JSON processor | https://jqlang.github.io/jq/
-        - miller # Name-indexed data processing tool | https://github.com/johnkerl/miller
-
-        - zoxide # Shell extension to navigate your filesystem faster | https://github.com/ajeetdsouza/zoxide
-        - nnn # Tiny, lightning fast, feature-packed file manager | https://github.com/jarun/nnn
-        - tree # Display directories as trees (with optional color/HTML output) | https://oldmanprogrammer.net/source.php?dir=projects/tree
-        - diffutils # File comparison utilities | https://www.gnu.org/s/diffutils/
-        - difftastic # A syntax-aware diff | https://github.com/Wilfred/difftastic
-        - glow # Render markdown on the CLI | https://github.com/charmbracelet/glow
-        - pandoc # Conversion between documentation formats | https://pandoc.org
-        - exiv2 # EXIF and IPTC metadata manipulation library and tools | https://exiv2.org/
-        - lolcat # Rainbows and unicorns in your console! | https://github.com/busyloop/lolcat
-        - cmatrix # Console Matrix | https://github.com/abishekvashok/cmatrix/
-        - qpdf
-
-        - stress # Tool to impose load on and stress test a computer system | https://github.com/resurrecting-open-source-projects/stress
-        - stress-ng # Stress test a computer system in various selectable ways | https://wiki.ubuntu.com/Kernel/Reference/stress-ng
-        - hyperfine # Command-line benchmarking tool | https://github.com/sharkdp/hyperfine
 
         - mpv
         - vlc-plugin-bittorrent
@@ -153,8 +114,8 @@ modules:
         - podman-tui # terminal user interface for Podman
         - podlet # Generate Podman Quadlet files from a Podman command, compose file, or existing object | https://crates.io/crates/podlet
         - podman-compose # Run docker-compose.yml using podman
-        - udica # A tool for generating SELinux security policies for containers | https://github.com/containers/udica
-        - skopeo # A command line utility that performs various operations on container images and image repositories | https://github.com/containers/skopeo
+        - udica # Generates SELinux security policies for containers | https://github.com/containers/udica
+        - skopeo # Performs various operations on container images and image repositories | https://github.com/containers/skopeo
 
         - ansible # Automate deployment, configuration, and upgrading | https://www.ansible.com/
 
@@ -173,13 +134,13 @@ modules:
         - yaru-theme              # Ubuntu community theme yaru
 
         - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+
     remove:
       packages:
         # example: removing firefox (in favor of the flatpak)
         # "firefox" is the main package, "firefox-langpacks" is a dependency
         - firefox
         - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
-
 
   - type: fonts
     fonts:
