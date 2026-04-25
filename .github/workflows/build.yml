@@ -31,7 +31,6 @@ jobs:
           - milos-bazzite.yml
           - milos-bazzite-nvidia.yml
           - milos-bluefin.yml
-          - milos-bluefin-nvidia.yml
 
     steps:
       # the build is fully handled by the reusable github action
