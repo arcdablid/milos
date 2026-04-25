@@ -59,11 +59,11 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
 These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
 
 ```bash
-cosign verify --key cosign.pub ghcr.io/arcdablid/milos
-```
-
-or
-
-```bash
-cosign verify --key cosign.pub ghcr.io/arcdablid/milos-nvidia
+cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bazzite
+# or
+cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bazzite-nvidia
+# or
+cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bluefin
+# or
+cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bluefin-nvidia
 ```
