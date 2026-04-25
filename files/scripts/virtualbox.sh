@@ -74,7 +74,8 @@ curl -L -o $EXTPACK_PATH "$EXTPACK_URL"
     --sha-256 $HASH
 
 mkdir -p /usr/lib/modules-load.d
-cat > /usr/lib/modules-load.d/bazzite-virtualbox.conf << EOF
+# cat > /usr/lib/modules-load.d/bazzite-virtualbox.conf << EOF
+cat > /usr/lib/modules-load.d/"$(jq -r '.["image-name"]' < /usr/share/ublue-os/image-info.json)"-virtualbox.conf << EOF
 # load virtualbox kernel drivers
 vboxdrv
 vboxnetflt
