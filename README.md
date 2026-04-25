@@ -1,6 +1,6 @@
 # milos &nbsp; [![bluebuild](https://github.com/arcdablid/milos/actions/workflows/build.yml/badge.svg)](https://github.com/arcdablid/milos/actions/workflows/build.yml)
 
-A custom immutable Linux OS based on [The Bazzite Developer Experience](https://github.com/ublue-os/bazzite-dx) built using [BlueBuild](https://github.com/blue-build/template).
+A custom immutable Linux OS based on [Bazzite Developer Experience](https://github.com/ublue-os/bazzite-dx) and/or [Bluefin Developer Experience](https://docs.projectbluefin.io/bluefin-dx/) built using [BlueBuild](https://github.com/blue-build/template).
 
 ## Notable additions & features
 
@@ -10,11 +10,8 @@ A custom immutable Linux OS based on [The Bazzite Developer Experience](https://
 - Curated list of extra [system packages, flatpaks, gnome extensions & fonts](https://github.com/arcdablid/milos/recipes/recipe.yml)
 - A few extra useful [`ujust` recipes](https://github.com/arcdablid/milos/files/justfiles/justfile.just):
   ```bash
-    milos-setup-chezmoi               # Shortcut to setup dotfiles using chezmoi.
-    milos-setup-linger                # Enable linger for current user
     milos-vboxusers-add-current-user  # Add vboxusers group to system if not there already and current user to it.
     milos-clean                       # Clean up old packages and Docker/Podman images and volumes.
-    milos-setup-podman-syncthing      # Add syncthing for current user via a quadlet.
     milos-setup-teamviewer            # Setup teamviewer background service & launch teamviewer
     milos-setup-tailscale             # Setup tailscale (and it systray) by providing an auth-key
   ```
@@ -32,8 +29,6 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bazzite-nvidia:latest
   # or
   rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bluefin:latest
-  # or
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bluefin-nvidia:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -46,8 +41,6 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bazzite-nvidia:latest
   # or
   rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bluefin:latest
-  # or
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bluefin-nvidia:latest
   ```
 - Reboot again to complete the installation
   ```
@@ -64,6 +57,4 @@ cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bazzite
 cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bazzite-nvidia
 # or
 cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bluefin
-# or
-cosign verify --key cosign.pub ghcr.io/arcdablid/milos-bluefin-nvidia
 ```
