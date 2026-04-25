@@ -86,22 +86,6 @@ export On_IWhite := '\033[0;107m'   # White
 
 # ##############################################################################
 
-# Shortcut to setup dotfiles using chezmoi.
-[positional-arguments]
-milos-setup-chezmoi *args:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    chezmoi init --apply "$@"
-
-# ##############################################################################
-
-# Enable linger for current user
-milos-setup-linger:
-    sudo loginctl enable-linger $USER
-
-# ##############################################################################
-
 # Clean up old packages and Docker/Podman images and volumes.
 milos-clean:
     #!/usr/bin/env bash
@@ -126,91 +110,6 @@ milos-virtualbox-add-current-user:
 
     sudo usermod -aG vboxusers $USER
     echo "Reboot system for VirtualBox to pick up the change."
-
-# ##############################################################################
-
-# Add syncthing for current user via a quadlet.
-milos-setup-podman-syncthing:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    # ------------------------------------------------------------------------------
-
-    executor="${0##*/}"
-    executor_path="${BASH_SOURCE}"
-    while [ -L "${executor_path}" ]; do
-        executor_dir="$(cd -P "$(dirname "${executor_path}")" >/dev/null 2>&1 && pwd)"
-        executor_path="$(readlink "${executor_path}")"
-        [[ ${executor_path} != /* ]] && executor_path="${executor_dir}/${executor_path}"
-    done
-    executor_path="$(readlink -f "${executor_path}")"
-    executor_dir="$(cd -P "$(dirname -- "${executor_path}")" >/dev/null 2>&1 && pwd)"
-
-    declare -a required_cmds=( "podman" )
-
-    fail=false
-    for rc in "${required_cmds[@]}"; do
-        if ! command -v "${rc}" &> /dev/null ; then
-            printf "[${executor}] [ERROR] Command '${rc}' unavailable!?"
-            fail=true
-        fi
-    done
-    [[ "${fail}" == true ]] && exit 1
-
-    # ------------------------------------------------------------------------------
-
-    read -e -p "Enter config location:" -i "$HOME/.config/syncthing" config_location
-    read -e -p "Enter shares location:" -i "$HOME/Syncthing" shares_location
-
-    # $( whoami ) or $( id -un ) for current user
-    local_user_uid=$( id -u ) # or $( id -u <username> ) for any other user than current
-    local_user_gid=$( id -g ) # or $( id -g <username> ) for any other user than current
-
-
-    QUADLET="
-    [Unit]
-    Description=Podman syncthing.service
-    Wants=network-online.target
-    After=network-online.target
-
-    [Service]
-    Restart=on-failure
-    TimeoutStartSec=900
-
-    [Container]
-    Image=docker.io/syncthing/syncthing:latest
-    AutoUpdate=registry
-    Network=host
-    UserNS=keep-id:uid=${local_user_uid},gid=${local_user_gid}
-    Volume=${config_location}:/var/syncthing/config:Z
-
-    # Folders to share
-    Volume=${shares_location}:/var/syncthing/shares:Z
-
-    [Install]
-    WantedBy=default.target
-    "
-
-    printf "[${executor}] ${BPurple}INFO${Color_Off} - Creating directories...\n"
-    mkdir -pv "${config_location}"
-    mkdir -pv "${shares_location}"
-
-    printf "[${executor}] ${BPurple}INFO${Color_Off} - Creating quadlet...\n"
-    echo "${QUADLET}" | tee ~/.config/containers/systemd/syncthing.container > /dev/null
-
-    printf "[${executor}] ${BPurple}INFO${Color_Off} - Enabling & starting quadlet...\n"
-    systemctl --user daemon-reload
-    systemctl --user start syncthing
-
-    printf "[${executor}] ${BPurple}INFO${Color_Off} - Enabling automatic updates & start on boot...\n"
-
-    # 'AutoUpdate=registry' in the systemd definition allows the container to be auto-updated,
-    # manually by calling 'podman auto-update'
-    # or automatically by enabling the relative systemd service:
-    systemctl enable --user --now podman-auto-update.timer
-
-    # Start user services even when not logged in
-    loginctl enable-linger $USER
 
 # ##############################################################################
 

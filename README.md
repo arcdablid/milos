@@ -27,11 +27,13 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
 
 - First rebase to the unsigned image, to get the proper signing keys and policies installed:
   ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos:latest
-  ```
-  or
-  ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-nvidia:latest
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bazzite:latest
+  # or
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bazzite-nvidia:latest
+  # or
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bluefin:latest
+  # or
+  rpm-ostree rebase ostree-unverified-registry:ghcr.io/arcdablid/milos-bluefin-nvidia:latest
   ```
 - Reboot to complete the rebase:
   ```
@@ -39,11 +41,13 @@ To install, you need to rebase from an existing Bazzite or other atomic Fedora i
   ```
 - Rebasing to the signed image should happen automatically shortly after the system comes up again. Manually, it can be done like so:
   ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos:latest
-  ```
-  or
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-nvidia:latest
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bazzite:latest
+  # or
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bazzite-nvidia:latest
+  # or
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bluefin:latest
+  # or
+  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/arcdablid/milos-bluefin-nvidia:latest
   ```
 - Reboot again to complete the installation
   ```

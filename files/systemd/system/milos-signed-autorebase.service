@@ -6,11 +6,12 @@ Wants=network-online.target
 Before=system-flatpak-setup.timer system-flatpak-setup.service user-flatpak-setup.timer user-flatpak-setup.service
 
 [Service]
+EnvironmentFile=/var/lib/milos_image_name
 Type=oneshot
 StandardOutput=journal+console
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/arcdablid/milos:latest
+ExecStart=/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://ghcr.io/arcdablid/${MILOS_IMAGE_NAME}:latest
 ExecStart=/usr/bin/touch /etc/milos-signed-autorebase/done
 ExecStart=/usr/bin/systemctl reboot
 
