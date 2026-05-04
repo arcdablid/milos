@@ -145,11 +145,12 @@ modules:
   - type: fonts
     fonts:
       nerd-fonts:
+        - 0xProto
         - FiraCode # don't add spaces or "Nerd Font" suffix
         - Hack
         - SourceCodePro
+        - JetBrainsMono # Required by VSCode
       google-fonts:
-        - Roboto
         - Open Sans
         - Inter
       # url-fonts:
