@@ -40,6 +40,9 @@ modules:
         - jdxcode/mise
     install:
       packages:
+
+        - gst-thumbnailers
+
         # - NetworkManager-libnm
         # - NetworkManager-tui
         - gnome-tweaks
