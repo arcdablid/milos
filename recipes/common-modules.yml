@@ -195,9 +195,8 @@ modules:
         scope: system
 
   - type: script
-    scripts:
-      # run files/scripts/virtualbox.sh
-      - virtualbox.sh
+    # scripts:
+      # - virtualbox.sh
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       - "flatpak remote-modify --system --default-branch=stable flathub"

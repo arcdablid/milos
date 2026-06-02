@@ -104,12 +104,12 @@ milos-clean:
 # ##############################################################################
 
 # Add vboxusers group to system if not there already and current user to it.
-milos-virtualbox-add-current-user:
-    #!/usr/bin/env bash
-    set -euo pipefail
+# milos-virtualbox-add-current-user:
+#     #!/usr/bin/env bash
+#     set -euo pipefail
 
-    sudo usermod -aG vboxusers $USER
-    echo "Reboot system for VirtualBox to pick up the change."
+#     sudo usermod -aG vboxusers $USER
+#     echo "Reboot system for VirtualBox to pick up the change."
 
 # ##############################################################################
 
