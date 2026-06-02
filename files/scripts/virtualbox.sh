@@ -8,7 +8,6 @@ set ${SET_X:+-x} -eou pipefail
 RELEASE="$(rpm -E %fedora)"
 
 # search installed rpm packages for kernel to get version; `uname -r` does not work in a container environment
-# KERNEL_VER="$(rpm -qa | grep -E 'kernel-[0-9].*?[.\\-]ba' | cut -d'-' -f2,3)"
 KERNEL_VER="$(rpm -qa | grep -E 'kernel-[0-9].*?[.\\-]' | cut -d'-' -f2,3)"
 # install dkms
 dnf install -y dkms
@@ -75,10 +74,8 @@ curl -L -o $EXTPACK_PATH "$EXTPACK_URL"
     --sha-256 $HASH
 
 mkdir -p /usr/lib/modules-load.d
-# cat > /usr/lib/modules-load.d/bazzite-virtualbox.conf << EOF
-cat > /usr/lib/modules-load.d/"$(jq -r '.["image-name"]' < /usr/share/ublue-os/image-info.json)"-virtualbox.conf << EOF
+cat > /usr/lib/modules-load.d/bazzite-virtualbox.conf << EOF
 # load virtualbox kernel drivers
 vboxdrv
-vboxnetflt
 vboxnetflt
 EOF
