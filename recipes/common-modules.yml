@@ -53,14 +53,12 @@ modules:
         - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
 
   - type: script
-    # scripts:
-      # - virtualbox.sh
+    scripts:
+      - virtualbox.sh
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       # - "flatpak remote-modify --system --default-branch=stable flathub"
       # - 'dnf install -y "$( curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" )"'
-      # - "curl https://example.com/examplebinary > /usr/bin/examplebinary" # example: download binary
-      # - "ln -sf /usr/bin/ld.bfd /etc/alternatives/ld && ln -sf /etc/alternatives/ld /usr/bin/ld" # example: ld alternatives symlink workaround
 
   - type: systemd
     # this example disables automatic flatpak updates and enables a custom service unit for all users
