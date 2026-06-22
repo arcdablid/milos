@@ -1,9 +1,0 @@
-[Unit]
-Description=Daily clean up of old packages and Docker/Podman images.
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-
-[Install]
-WantedBy=timers.target

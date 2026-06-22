@@ -1,9 +1,9 @@
 [Unit]
-Description=milos add missing groups
-ConditionPathExists=!/etc/milos-signed-autorebase/done
+Description=milos configure system
 After=network-online.target
 Wants=network-online.target
-Before=system-flatpak-setup.timer system-flatpak-setup.service
+ConditionPathExists=!/var/lib/%N.stamp
+ConditionPathExists=/var/lib/milos-signed-autorebase.stamp
 
 [Service]
 Type=oneshot
@@ -13,6 +13,7 @@ RestartSec=5
 ExecStart=/usr/bin/groupadd --force docker
 ExecStart=/usr/bin/groupadd --force vboxusers
 ExecStart=/usr/bin/flatpak remote-modify --system --default-branch=stable flathub
+ExecStart=/usr/bin/touch /var/lib/%N.stamp
 
 [Install]
 WantedBy=multi-user.target
