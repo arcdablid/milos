@@ -1,5 +1,5 @@
 [Unit]
-Description=Set default branch to stable for user flatpaks
+Description=Config user stuffs
 ConditionPathExists=!%h/.var/lib/%N.stamp
 After=network-online.target milos-config-system.service
 Before=user-flatpak-setup.timer user-flatpak-setup.service
