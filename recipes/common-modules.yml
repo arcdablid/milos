@@ -57,11 +57,10 @@ modules:
       - virtualbox.sh
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
-      # - "flatpak remote-modify --system --default-branch=stable flathub"
+      - "flatpak remote-modify --system --default-branch=stable flathub"
       # - 'dnf install -y "$( curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" )"'
 
   - type: systemd
-    # this example disables automatic flatpak updates and enables a custom service unit for all users
     system:
       enabled:
         - milos-signed-autorebase.service
@@ -77,3 +76,142 @@ modules:
         - milos-config-user.service
     #   disabled:
     #     - flatpak-user-update.timer
+
+  - type: default-flatpaks
+    configurations:
+      - scope: user
+        repo:
+          title: Flathub (user)
+      - scope: system
+        repo:
+          title: Flathub (system)
+        install: # system flatpaks we want all users to have and not remove
+          - org.gtk.Gtk3theme.Yaru
+          - org.gtk.Gtk3theme.Yaru-Yellow
+          - org.gtk.Gtk3theme.Yaru-Yellow-light
+          - org.gtk.Gtk3theme.Yaru-Yellow-dark
+          - org.gtk.Gtk3theme.Yaru-Teal
+          - org.gtk.Gtk3theme.Yaru-Teal-light
+          - org.gtk.Gtk3theme.Yaru-Teal-dark
+          - org.gtk.Gtk3theme.Yaru-Red
+          - org.gtk.Gtk3theme.Yaru-Red-light
+          - org.gtk.Gtk3theme.Yaru-Red-dark
+          - org.gtk.Gtk3theme.Yaru-Purple
+          - org.gtk.Gtk3theme.Yaru-Purple-light
+          - org.gtk.Gtk3theme.Yaru-Purple-dark
+          - org.gtk.Gtk3theme.Yaru-Pink
+          - org.gtk.Gtk3theme.Yaru-Pink-light
+          - org.gtk.Gtk3theme.Yaru-Pink-dark
+          - org.gtk.Gtk3theme.Yaru-Orange
+          - org.gtk.Gtk3theme.Yaru-Orange-light
+          - org.gtk.Gtk3theme.Yaru-Orange-dark
+          - org.gtk.Gtk3theme.Yaru-MATE
+          - org.gtk.Gtk3theme.Yaru-MATE-light
+          - org.gtk.Gtk3theme.Yaru-MATE-dark
+          - org.gtk.Gtk3theme.Yaru-Lavender
+          - org.gtk.Gtk3theme.Yaru-Lavender-light
+          - org.gtk.Gtk3theme.Yaru-Lavender-dark
+          - org.gtk.Gtk3theme.Yaru-Grey
+          - org.gtk.Gtk3theme.Yaru-Grey-light
+          - org.gtk.Gtk3theme.Yaru-Grey-dark
+          - org.gtk.Gtk3theme.Yaru-Green
+          - org.gtk.Gtk3theme.Yaru-Green-light
+          - org.gtk.Gtk3theme.Yaru-Green-dark
+          - org.gtk.Gtk3theme.Yaru-Deepblue
+          - org.gtk.Gtk3theme.Yaru-Deepblue-light
+          - org.gtk.Gtk3theme.Yaru-Deepblue-dark
+          - org.gtk.Gtk3theme.Yaru-Cinnamon
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-light
+          - org.gtk.Gtk3theme.Yaru-Cinnamon-dark
+          - org.gtk.Gtk3theme.Yaru-Brown
+          - org.gtk.Gtk3theme.Yaru-Brown-light
+          - org.gtk.Gtk3theme.Yaru-Brown-dark
+          - org.gtk.Gtk3theme.Yaru-Blue
+          - org.gtk.Gtk3theme.Yaru-Blue-light
+          - org.gtk.Gtk3theme.Yaru-Blue-dark
+          - org.gtk.Gtk3theme.Yaru-Aubergine
+          - org.gtk.Gtk3theme.Yaru-Aubergine-light
+          - org.gtk.Gtk3theme.Yaru-Aubergine-dark
+          - org.gtk.Gtk3theme.Yaru-Aqua
+          - org.gtk.Gtk3theme.Yaru-Aqua-light
+          - org.gtk.Gtk3theme.Yaru-Aqua-dark
+          - org.gtk.Gtk3theme.Yaru-Amber
+          - org.gtk.Gtk3theme.Yaru-Amber-light
+          - org.gtk.Gtk3theme.Yaru-Amber-dark
+          - org.gtk.Gtk3theme.Yaru-sage
+          - org.gtk.Gtk3theme.Yaru-sage-dark
+          - org.gtk.Gtk3theme.Yaru-remix
+          - org.gtk.Gtk3theme.Yaru-remix-light
+          - org.gtk.Gtk3theme.Yaru-remix-dark
+          - org.gtk.Gtk3theme.Yaru-prussiangreen
+          - org.gtk.Gtk3theme.Yaru-prussiangreen-dark
+          - org.gtk.Gtk3theme.Yaru-olive
+          - org.gtk.Gtk3theme.Yaru-olive-dark
+          - org.gtk.Gtk3theme.Yaru-magenta
+          - org.gtk.Gtk3theme.Yaru-magenta-dark
+          - org.gtk.Gtk3theme.Yaru-light
+          - org.gtk.Gtk3theme.Yaru-dark
+          - org.gtk.Gtk3theme.Yaru-bark
+          - org.gtk.Gtk3theme.Yaru-bark-dark
+
+  - type: gnome-extensions
+    install:
+      - 2236  # Night Theme Switcher
+              # https://extensions.gnome.org/extension/2236/night-theme-switcher/
+              # https://nightthemeswitcher.romainvigier.fr
+      - 3193  # Blur my Shell
+              # blur-my-shell@aunetx
+              # https://extensions.gnome.org/extension/3193/blur-my-shell/
+              # https://github.com/aunetx/blur-my-shell
+      - 615 # AppIndicator and KStatusNotifierItem Support
+            # appindicatorsupport@rgcjonas.gmail.com
+            # https://extensions.gnome.org/extension/615/appindicator-support/
+            # https://github.com/ubuntu/gnome-shell-extension-appindicator
+      - 307 # Dash-to-Dock
+            # dash-to-dock@micxgx.gmail.com
+            # https://extensions.gnome.org/extension/307/dash-to-dock/
+            # https://micheleg.github.io/dash-to-dock/
+      - 1160  # Dash to Panel
+              # dash-to-panel@jderose9.github.com
+              # https://github.com/home-sweet-gnome/dash-to-panel
+              # https://extensions.gnome.org/extension/1160/dash-to-panel/
+      - 1460  # Vitals
+              # Vitals@CoreCoding.com
+              # https://github.com/corecoding/Vitals
+              # https://extensions.gnome.org/extension/1460/vitals/
+      - 5470  # Weather O'Clock
+              # weatheroclock@CleoMenezesJr.github.io
+              # https://github.com/CleoMenezesJr/weather-oclock
+              # https://extensions.gnome.org/extension/5470/weather-oclock/
+      - 7065  # Tiling Shell
+              # tilingshell@ferrarodomenico.com
+              # https://extensions.gnome.org/extension/7065/tiling-shell/
+              # https://github.com/domferr/tilingshell
+      - 8745  # App Grid Tuner
+              # app-grid-tuner@m-lab
+              # https://extensions.gnome.org/extension/8745/app-grid-tuner/
+              # https://codeberg.org/m-lab/app-grid-tuner
+      # 6099  # PaperWM
+              # paperwm@paperwm.github.com
+              # https://github.com/paperwm/PaperWM
+              # https://extensions.gnome.org/extension/6099/paperwm/
+      - 973 # Switcher
+            # switcher@landau.fi
+            # https://extensions.gnome.org/extension/973/switcher/
+            # https://github.com/daniellandau/switcher
+      - 19  # User Themes
+            # user-theme@gnome-shell-extensions.gcampax.github.com
+            # https://extensions.gnome.org/extension/19/user-themes/
+            # https://gitlab.gnome.org/GNOME/gnome-shell-extensions
+      - 1319  # GSConnect
+              # gsconnect@andyholmes.github.io
+              # https://extensions.gnome.org/extension/1319/gsconnect/
+              # https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
+      - 517 # Caffeine
+            # caffeine@patapon.info
+            # https://extensions.gnome.org/extension/517/caffeine/
+            # https://github.com/eonpatapon/gnome-shell-extension-caffeine
+    # uninstall:
+      # - GSConnect # Uninstall step here should be used only for the extensions
+                  # which are not installed through OS package manager in the base image,
+                  # like extensions installed from gnome-extensions module
