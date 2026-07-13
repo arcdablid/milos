@@ -103,16 +103,6 @@ milos-clean:
 
 # ##############################################################################
 
-# Add vboxusers group to system if not there already and current user to it.
-milos-virtualbox-add-current-user:
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    sudo usermod -aG vboxusers $USER
-    echo "Reboot system for VirtualBox to pick up the change."
-
-# ##############################################################################
-
 # Setup teamviewer background service & launch teamviewer
 milos-setup-teamviewer:
     sudo teamviewer daemon enable
@@ -126,7 +116,13 @@ milos-setup-tailscale *args:
     #!/usr/bin/env bash
     set -euo pipefail
 
-    sudo tailscale up --auth-key "$@"
+    if [[ $# -eq 0 ]]; then
+        printf "[${executor}] ${BPurple}INFO${Color_Off} - Missing auth-key!!!\n"
+        printf "Usage: milos-setup-tailscale auth-key"
+        exit 1
+    fi
+
+    sudo tailscale up --auth-key "$1"
     sudo tailscale set --operator=$USER
 
     # Tailscale integrated systray for GNOME

@@ -2,19 +2,15 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 
 # image will be published to ghcr.io/<user>/<name>
-name: milos-bazzite-nvidia
+name: milos
 # description will be included in the image's metadata
-description: "[M]y [I]mmutable [L]inux [OS] - Bazzite/NVIDIA Variant"
+description: "[M]y [I]mmutable [L]inux [OS]"
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/bazzite-dx-nvidia-gnome
+base-image: ghcr.io/projectbluefin/bluefin
 image-version: stable
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
     - from-file: common-modules.yml
-
-    - type: script
-      snippets:
-        - "echo 'MILOS_IMAGE_NAME=\"milos-bazzite-nvidia\"' | tee /var/lib/milos_image_name"
