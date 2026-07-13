@@ -74,6 +74,7 @@ modules:
     user:
       enabled:
         - milos-config-user.service
+        - podman.socket
     #   disabled:
     #     - flatpak-user-update.timer
 
