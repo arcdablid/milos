@@ -53,8 +53,8 @@ modules:
         - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
 
   - type: script
-    scripts:
-      - virtualbox.sh
+    # scripts:
+      # - virtualbox.sh
     snippets:
       - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
       - "flatpak remote-modify --system --default-branch=stable flathub"

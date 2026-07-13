@@ -11,7 +11,6 @@ StandardOutput=journal+console
 Restart=on-failure
 RestartSec=5
 ExecStart=/usr/bin/groupadd --force docker
-ExecStart=/usr/bin/groupadd --force vboxusers
 ExecStart=/usr/bin/flatpak remote-modify --system --default-branch=stable flathub
 ExecStart=/usr/bin/touch /var/lib/%N.stamp
 
