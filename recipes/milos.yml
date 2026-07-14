@@ -7,7 +7,7 @@ name: milos
 description: "[M]y [I]mmutable [L]inux [OS]"
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/projectbluefin/bluefin
+base-image: ghcr.io/ublue-os/bluefin-dx
 image-version: stable
 
 # module configuration, executed in order
