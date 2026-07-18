@@ -34,6 +34,8 @@ modules:
         - https://linux.teamviewer.com/pubkey/currentkey.asc
     install:
       packages:
+        - NetworkManager-tui
+
         - cockpit
         - cockpit-files
         - cockpit-machines
