@@ -4,159 +4,159 @@
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
+    - type: signing # this sets up the proper policy & signing files for signed images to work fully
 
-  - type: files
-    files:
-      - source: milos # copies `files/milos/*` (* means everything inside it) into your image's root folder `/`
-        destination: /
-      # - source: my-image/usr # copies `files/my-image/usr/*` to `/usr/` inside the image
-      #   destination: /usr
-
-  - type: justfiles
-    # validate: true
-    install: true
-    # By default, the module will import all files with names ending in .just from files/justfiles/.
-    include:
-      - milos
-    #   - gnome/monitors.just
-    #   - shared/flatpak/fix-theming.just
-    #   - justfile1.just
-
-  - type: dnf
-    repos:
-      nonfree: rpmfusion
+    - type: files
       files:
-        - https://repository.mullvad.net/rpm/stable/mullvad.repo
-      keys:
-        - https://linux.teamviewer.com/pubkey/currentkey.asc
-    install:
-      packages:
-        - NetworkManager-tui
+          - source: milos # copies `files/milos/*` (* means everything inside it) into your image's root folder `/`
+            destination: /
+          # - source: my-image/usr # copies `files/my-image/usr/*` to `/usr/` inside the image
+          #   destination: /usr
 
-        - cockpit
-        - cockpit-files
-        - cockpit-machines
-        - cockpit-podman
+    - type: justfiles
+      # validate: true
+      install: true
+      # By default, the module will import all files with names ending in .just from files/justfiles/.
+      include:
+          - milos
+      #   - gnome/monitors.just
+      #   - shared/flatpak/fix-theming.just
+      #   - justfile1.just
 
-        - mullvad-vpn
-        - mullvad-browser
+    - type: dnf
+      repos:
+          nonfree: rpmfusion
+          files:
+              - https://repository.mullvad.net/rpm/stable/mullvad.repo
+          keys:
+              - https://linux.teamviewer.com/pubkey/currentkey.asc
+      install:
+          packages:
+              - NetworkManager-tui
 
-        - gparted
-        - wireshark
+              - cockpit
+              - cockpit-files
+              - cockpit-machines
+              - cockpit-podman
 
-        - gnome-shell-theme-yaru  # Yaru GNOME Shell Theme
-        - yaru-icon-theme         # Yaru icon theme
-        - yaru-sound-theme        # Yaru sound theme
-        - yaru-theme              # Ubuntu community theme yaru
+              - mullvad-vpn
+              - mullvad-browser
 
-        - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+              - gparted
+              - wireshark
 
-  - type: script
-    # scripts:
+              - gnome-shell-theme-yaru # Yaru GNOME Shell Theme
+              - yaru-icon-theme # Yaru icon theme
+              - yaru-sound-theme # Yaru sound theme
+              - yaru-theme # Ubuntu community theme yaru
+
+              - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+
+    - type: script
+      # scripts:
       # - virtualbox.sh
-    snippets:
-      - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
-      # - "flatpak remote-modify --system --default-branch=stable flathub"
-      # - 'dnf install -y "$( curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" )"'
+      snippets:
+          - "mkdir -pv -m 0754 /etc/milos-signed-autorebase"
+          # - "flatpak remote-modify --system --default-branch=stable flathub"
+          # - 'dnf install -y "$( curl -sL https://api.github.com/repos/Tibixdev/winboat/releases/latest | grep -wo "https.*x86_64.rpm\|https.*amd64.rpm" )"'
 
-  - type: systemd
-    system:
-      enabled:
-        - milos-signed-autorebase.service
-        - milos-config-system.service
-        - tailscaled.service
-        - podman.socket
-        - docker.socket
-        - cockpit.socket
-    #   disabled:
-    #     - flatpak-system-update.timer
-    user:
-      enabled:
-        - milos-config-user.service
-        - podman.socket
-    #   disabled:
-    #     - flatpak-user-update.timer
+    - type: systemd
+      system:
+          enabled:
+              - milos-signed-autorebase.service
+              - milos-config-system.service
+              - tailscaled.service
+              - podman.socket
+              - docker.socket
+              - cockpit.socket
+      #   disabled:
+      #     - flatpak-system-update.timer
+      user:
+          enabled:
+              - milos-config-user.service
+              - podman.socket
+      #   disabled:
+      #     - flatpak-user-update.timer
 
-  - type: gnome-extensions
-    install:
-      - 2236  # Night Theme Switcher
-              # https://extensions.gnome.org/extension/2236/night-theme-switcher/
-              # https://nightthemeswitcher.romainvigier.fr
-      - 3193  # Blur my Shell
-              # blur-my-shell@aunetx
-              # https://extensions.gnome.org/extension/3193/blur-my-shell/
-              # https://github.com/aunetx/blur-my-shell
-      - 615   # AppIndicator and KStatusNotifierItem Support
-              # appindicatorsupport@rgcjonas.gmail.com
-              # https://extensions.gnome.org/extension/615/appindicator-support/
-              # https://github.com/ubuntu/gnome-shell-extension-appindicator
-      - 307   # Dash-to-Dock
-              # dash-to-dock@micxgx.gmail.com
-              # https://extensions.gnome.org/extension/307/dash-to-dock/
-              # https://micheleg.github.io/dash-to-dock/
-      - 1160  # Dash to Panel
-              # dash-to-panel@jderose9.github.com
-              # https://github.com/home-sweet-gnome/dash-to-panel
-              # https://extensions.gnome.org/extension/1160/dash-to-panel/
-      - 1460  # Vitals
-              # Vitals@CoreCoding.com
-              # https://github.com/corecoding/Vitals
-              # https://extensions.gnome.org/extension/1460/vitals/
-      - 5470  # Weather O'Clock
-              # weatheroclock@CleoMenezesJr.github.io
-              # https://github.com/CleoMenezesJr/weather-oclock
-              # https://extensions.gnome.org/extension/5470/weather-oclock/
-      - 7065  # Tiling Shell
-              # tilingshell@ferrarodomenico.com
-              # https://extensions.gnome.org/extension/7065/tiling-shell/
-              # https://github.com/domferr/tilingshell
-      - 8745  # App Grid Tuner
-              # app-grid-tuner@m-lab
-              # https://extensions.gnome.org/extension/8745/app-grid-tuner/
-              # https://codeberg.org/m-lab/app-grid-tuner
-      # 6099  # PaperWM
-              # paperwm@paperwm.github.com
-              # https://github.com/paperwm/PaperWM
-              # https://extensions.gnome.org/extension/6099/paperwm/
-      # - 973 # Switcher
-              # switcher@landau.fi
-              # https://extensions.gnome.org/extension/973/switcher/
-              # https://github.com/daniellandau/switcher
-      - 19    # User Themes
-              # user-theme@gnome-shell-extensions.gcampax.github.com
-              # https://extensions.gnome.org/extension/19/user-themes/
-              # https://gitlab.gnome.org/GNOME/gnome-shell-extensions
-      - 1319  # GSConnect
-              # gsconnect@andyholmes.github.io
-              # https://extensions.gnome.org/extension/1319/gsconnect/
-              # https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
-      - 517   # Caffeine
-              # caffeine@patapon.info
-              # https://extensions.gnome.org/extension/517/caffeine/
-              # https://github.com/eonpatapon/gnome-shell-extension-caffeine
-      - 6325  # Control monitor brightness and volume with ddcutil
-              # https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/
-              # https://gitlab.gnome.org/Nei/gnome-shell-extension-monitor-brightness-volume
-      - 5724  # Battery Health Charging
-              # https://extensions.gnome.org/extension/5724/battery-health-charging/
-              # https://github.com/maniacx/Battery-Health-Charging
-      - 6670  # Bluetooth Battery Meter
-              # https://extensions.gnome.org/extension/6670/bluetooth-battery-meter/
-              # https://github.com/maniacx/Bluetooth-Battery-Meter
-      - 3843  # Just Perfection
-              # https://extensions.gnome.org/extension/3843/just-perfection/
-              # https://gitlab.gnome.org/jrahmatzadeh/just-perfection
-      - 8834  # Copyous
-              # https://extensions.gnome.org/extension/8834/copyous/
-              # https://github.com/boerdereinar/copyous
-      - 6000  # Quick Settings Audio Devices Renamer
-              # https://extensions.gnome.org/extension/6000/quick-settings-audio-devices-renamer/
-              # https://github.com/marcinjahn/gnome-quicksettings-audio-devices-renamer-extension
-      - 5964  # Quick Settings Audio Devices Hider
-              # https://extensions.gnome.org/extension/5964/quick-settings-audio-devices-hider/
-              # https://github.com/marcinjahn/gnome-quicksettings-audio-devices-hider-extension
-    # uninstall:
+    - type: gnome-extensions
+      install:
+          - 2236 # Night Theme Switcher
+            # https://extensions.gnome.org/extension/2236/night-theme-switcher/
+            # https://nightthemeswitcher.romainvigier.fr
+          - 3193 # Blur my Shell
+            # blur-my-shell@aunetx
+            # https://extensions.gnome.org/extension/3193/blur-my-shell/
+            # https://github.com/aunetx/blur-my-shell
+          - 615 # AppIndicator and KStatusNotifierItem Support
+            # appindicatorsupport@rgcjonas.gmail.com
+            # https://extensions.gnome.org/extension/615/appindicator-support/
+            # https://github.com/ubuntu/gnome-shell-extension-appindicator
+          - 307 # Dash-to-Dock
+            # dash-to-dock@micxgx.gmail.com
+            # https://extensions.gnome.org/extension/307/dash-to-dock/
+            # https://micheleg.github.io/dash-to-dock/
+          - 1160 # Dash to Panel
+            # dash-to-panel@jderose9.github.com
+            # https://github.com/home-sweet-gnome/dash-to-panel
+            # https://extensions.gnome.org/extension/1160/dash-to-panel/
+          - 1460 # Vitals
+            # Vitals@CoreCoding.com
+            # https://github.com/corecoding/Vitals
+            # https://extensions.gnome.org/extension/1460/vitals/
+          - 5470 # Weather O'Clock
+            # weatheroclock@CleoMenezesJr.github.io
+            # https://github.com/CleoMenezesJr/weather-oclock
+            # https://extensions.gnome.org/extension/5470/weather-oclock/
+          - 7065 # Tiling Shell
+            # tilingshell@ferrarodomenico.com
+            # https://extensions.gnome.org/extension/7065/tiling-shell/
+            # https://github.com/domferr/tilingshell
+          - 8745 # App Grid Tuner
+            # app-grid-tuner@m-lab
+            # https://extensions.gnome.org/extension/8745/app-grid-tuner/
+            # https://codeberg.org/m-lab/app-grid-tuner
+          # 6099  # PaperWM
+          # paperwm@paperwm.github.com
+          # https://github.com/paperwm/PaperWM
+          # https://extensions.gnome.org/extension/6099/paperwm/
+          # - 973 # Switcher
+          # switcher@landau.fi
+          # https://extensions.gnome.org/extension/973/switcher/
+          # https://github.com/daniellandau/switcher
+          - 19 # User Themes
+            # user-theme@gnome-shell-extensions.gcampax.github.com
+            # https://extensions.gnome.org/extension/19/user-themes/
+            # https://gitlab.gnome.org/GNOME/gnome-shell-extensions
+          - 1319 # GSConnect
+            # gsconnect@andyholmes.github.io
+            # https://extensions.gnome.org/extension/1319/gsconnect/
+            # https://github.com/GSConnect/gnome-shell-extension-gsconnect/wiki
+          - 517 # Caffeine
+            # caffeine@patapon.info
+            # https://extensions.gnome.org/extension/517/caffeine/
+            # https://github.com/eonpatapon/gnome-shell-extension-caffeine
+          # - 6325  # Control monitor brightness and volume with ddcutil
+          # https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/
+          # https://gitlab.gnome.org/Nei/gnome-shell-extension-monitor-brightness-volume
+          - 5724 # Battery Health Charging
+            # https://extensions.gnome.org/extension/5724/battery-health-charging/
+            # https://github.com/maniacx/Battery-Health-Charging
+          - 6670 # Bluetooth Battery Meter
+            # https://extensions.gnome.org/extension/6670/bluetooth-battery-meter/
+            # https://github.com/maniacx/Bluetooth-Battery-Meter
+          - 3843 # Just Perfection
+            # https://extensions.gnome.org/extension/3843/just-perfection/
+            # https://gitlab.gnome.org/jrahmatzadeh/just-perfection
+          - 8834 # Copyous
+            # https://extensions.gnome.org/extension/8834/copyous/
+            # https://github.com/boerdereinar/copyous
+          - 6000 # Quick Settings Audio Devices Renamer
+            # https://extensions.gnome.org/extension/6000/quick-settings-audio-devices-renamer/
+            # https://github.com/marcinjahn/gnome-quicksettings-audio-devices-renamer-extension
+          - 5964 # Quick Settings Audio Devices Hider
+            # https://extensions.gnome.org/extension/5964/quick-settings-audio-devices-hider/
+            # https://github.com/marcinjahn/gnome-quicksettings-audio-devices-hider-extension
+      # uninstall:
       # - GSConnect # Uninstall step here should be used only for the extensions
-                  # which are not installed through OS package manager in the base image,
-                  # like extensions installed from gnome-extensions module
+      # which are not installed through OS package manager in the base image,
+      # like extensions installed from gnome-extensions module
