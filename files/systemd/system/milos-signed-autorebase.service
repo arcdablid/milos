@@ -9,7 +9,8 @@ Type=oneshot
 StandardOutput=journal+console
 Restart=on-failure
 RestartSec=5
-ExecStart=/usr/bin/bash -c '/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://$( rpm-ostree status | grep '● ostree-unverified-registry' | cut -d ":" -f 2 )'
+ExecStart=/usr/bin/bash -c '/usr/bin/rpm-ostree rebase --bypass-driver ostree-image-signed:docker://$( /usr/bin/rpm-ostree status | /usr/bin/grep '● ostree-unverified-registry' | /usr/bin/cut -d ':' -f 2 )'
+ExecStart=/usr/bin/mkdir -pv /var/lib
 ExecStart=/usr/bin/touch /var/lib/%N.stamp
 ExecStart=/usr/bin/systemctl reboot
 
