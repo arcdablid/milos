@@ -58,17 +58,18 @@ modules:
     - type: systemd
       system:
           enabled:
-              - milos-signed-autorebase.service
-              - milos-config-system.service
-              - tailscaled.service
-              - podman.socket
-              - docker.socket
-              - cockpit.socket
+            - milos-signed-autorebase.service
+            - milos-config-system.service
+            - cockpit.socket
+            - podman.socket
+            - podman-auto-update.service
+            - netavark-firewalld-reload.service
+            - tailscaled.service
+            - docker.socket
       #   disabled:
       #     - flatpak-system-update.timer
       user:
           enabled:
-              - milos-config-user.service
               - podman.socket
       #   disabled:
       #     - flatpak-user-update.timer
