@@ -32,20 +32,22 @@ modules:
               - https://linux.teamviewer.com/pubkey/currentkey.asc
       install:
           packages:
-              - NetworkManager-tui
+            - NetworkManager-tui
 
-              - cockpit
-              - cockpit-files
-              - cockpit-machines
-              - cockpit-podman
+            - cockpit
+            - cockpit-files
+            - cockpit-machines
+            - cockpit-podman
 
-              - mullvad-vpn
-              - mullvad-browser
+            - mullvad-vpn
+            - mullvad-browser
 
-              - gparted
-              - wireshark
+            - gparted
+            - wireshark
 
-              - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
+            - ckb-next
+
+            - https://download.teamviewer.com/download/linux/teamviewer.x86_64.rpm
 
     - type: script
       # scripts:
